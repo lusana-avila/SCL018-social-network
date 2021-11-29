@@ -1,15 +1,98 @@
-* {
+*{
     margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    
+} 
+
+body {
     font-family: sans-serif;
+       
 }
 
-.container-register{
+.login-container {
+display: flex;
+flex-direction: column;
+
+
+}
+
+.container-images {
+    margin-top: 40%;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    justify-content: center;
 }
 
+.illustration {
+    display: flex;
+    justify-content: center; 
+}
+
+
+#illustration{
+    display: flex;
+    width: 60%;
+    justify-content: center; 
+}
+
+.logo {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+#logo {
+    display: flex;
+    width: 60%;
+    justify-content: center; 
+}
+
+.container-credentials {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+    order: 3;
+   
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+#loginEmail {
+margin-top: 2%;
+
+}
+
+#loginPassword {
+    margin-top: 2%;
+
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#loginBtn{
+    margin-top: 2%;
+}
+
+#googleBtn{
+    margin-top: 2%;
+}
+
+h4 {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+/*
 .container-images{
     margin-top: 30%;
     display: flex;
@@ -18,6 +101,13 @@
     flex-wrap: wrap;
     justify-content: center;
 }
+
+.container-register{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
 
 .form,
 .illustration,
@@ -54,10 +144,8 @@ input {
     border: 1px solid #7F8442;
     box-sizing: border-box;
     border-radius: 30px;
-    
     font-size: 13px;
     line-height: 15px;
-
     color: #142030;
 }
 
@@ -107,3 +195,4 @@ button {
     }
 
 }
+*/

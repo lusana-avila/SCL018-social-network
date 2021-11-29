@@ -3,11 +3,16 @@ import { createUser } from '../lib/firebase.js';
 export const registerUser = () => {
   const drawRegister = document.createElement('section'); // crea un nodo de tipo element
   const registerTemplate = `
-  <section class="container-register">
+  
   <section class="container-images">
-  <img class="illustration" src="img/kambalache_ilustracion.png" alt="man and woman bartering things">
-  <img class="logo" src="img/kambalache_logo.png" alt="kambalache logo">
+  <div class="illustration">
+  <img id="illustration" src="img/kambalache_ilustracion.png" alt="man and woman bartering things">
+  </div>
+  <div class="logo">
+  <img id="logo" src="img/kambalache_logo.png" alt="kambalache logo">
+  </div>
   </section>
+  <section class="container-register">
     <section class="form">
       <section class="name">
       <input type="text" placeholder="Nombre de usuario"></input>
