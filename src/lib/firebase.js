@@ -8,8 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -34,6 +33,7 @@ export const createUser = (email, password) => createUserWithEmailAndPassword(au
   .then((userCredential) => { // aquí en el then debería ir lo que sucede luego de registrarse
     // Signed in
     const user = userCredential.user;
+    window.location.hash = '#/home';
     console.log(user);
     // ...
   })
@@ -50,7 +50,7 @@ export const createUser = (email, password) => createUserWithEmailAndPassword(au
 export const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in
-  // window.location.hash = '#/login';
+    window.location.hash = '#/home';
     const user = userCredential.user;
     console.log(user);
     // ...
@@ -63,29 +63,32 @@ export const signIn = (email, password) => signInWithEmailAndPassword(auth, emai
   });
 
 export const provider = new GoogleAuthProvider();
+
 export const googleSignIn = () => {
-signInWithRedirect(auth, provider);
-};
-
-
-export const redirection = () => {
-  getRedirectResult(auth)
+  signInWithPopup(auth, provider)
     .then((result) => {
-      // This gives you a Google Access Token. You can use it to access Google APIs.
+    // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
-
       // The signed-in user info.
       const user = result.user;
       window.location.hash = '#/home';
+
+    // ...
+    })
+    .catch((error) => {
+    // Handle Errors here.
+
+    // ...
     }).catch((error) => {
-      // Handle Errors here.
+    // Handle Errors here.
+
       const errorCode = error.code;
       const errorMessage = error.message;
       // The email of the user's account used.
       const email = error.email;
       // The AuthCredential type that was used.
       const credential = GoogleAuthProvider.credentialFromError(error);
-      // ...
+    // ...
     });
 };
