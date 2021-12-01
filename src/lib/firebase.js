@@ -9,6 +9,7 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
+  signOut,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -92,3 +93,11 @@ export const googleSignIn = () => {
     // ...
     });
 };
+
+export const closeSession = () => signOut(auth)
+.then(() => {
+  // Sign-out successful.
+  window.location.hash = '#/login';
+}).catch((error) => {
+  // An error happened.
+});
