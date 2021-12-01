@@ -1,3 +1,5 @@
+import { closeSession } from '../lib/firebase.js';
+
 export const home = () => {
   const drawHome = document.createElement('section');
   const homeTemplate = `
@@ -11,20 +13,28 @@ export const home = () => {
 
 <div class="wall">
   <div class="post">
-    <button id="write" class="write">¿Qué hay de nuevo?</button>
-    <button class="false-post">Publicar</button>
-  </div>
+    <button id="write" class="write">¿Qué quieres trocar? ... </button>
+    <div id="picture">
+    <img id="picture-icon" src="Img/icono-subir-imagen.png">
+    </div>
+    </div>
 </div>
 
 <footer>
   <div class="container-footer">
-    <img src="Img/icono-home-verde.png" class="home-verde" a href='#/home'>
-    <img src="Img/icono-agregar-post-verde.png" class="post-verde">
-    <img src="Img/icono-cerrar-sesion-verde.png" class="cerrarsesion-verde" a href='#/login'>
+    <img src="Img/icono-home-verde.png" class="home-green">
+    <img src="Img/icono-agregar-post-verde.png" class="post-green">
+    <img src="Img/icono-cerrar-sesion-verde.png" class="close-green">
   </div>
 </footer>
 `;
 
   drawHome.innerHTML = homeTemplate;
+
+  const exit = drawHome.querySelector('.close-green');
+  exit.addEventListener('click', () => {
+    closeSession();
+  });
+
   return drawHome;
 };
