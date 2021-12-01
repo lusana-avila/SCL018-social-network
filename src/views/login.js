@@ -10,10 +10,10 @@ export const loginUser = () => {
       <div class="illustration">
         <img id="illustration" src="img/kambalache_ilustracion.png" alt="man and woman bartering things">
       </div>
-     <div class="logo">
+    <div class="logo">
         <img id="logo" src="img/kambalache_logo.png" alt="kambalache logo">
       </div>
-     </div>
+    </div>
 
     <div class="login-credentials">
       <div class="form">
@@ -30,9 +30,9 @@ export const loginUser = () => {
         <h4>¿No tienes cuenta?<a href='#/register'>Regístrate aquí</h4>
     </div>
   
-   </div>
+  </div>
 
-   </div>
+  </div>
 `;
 
   drawLogin.innerHTML = loginTemplate;
