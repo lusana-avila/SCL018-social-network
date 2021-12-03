@@ -1,7 +1,7 @@
 import { closeSession } from '../lib/firebase.js';
 
 export const home = () => {
-  const drawHome = document.createElement('section');
+  const drawHome = document.querySelector('#root');
   const homeTemplate = `
   <header>
   <div class="container-header">
@@ -11,13 +11,15 @@ export const home = () => {
   </div>
 </header>
 
+<div class="main">
 <div class="wall">
   <div class="post">
     <button id="write" class="write">¿Qué quieres trocar? ... </button>
-    <div id="picture">
+    <div class="picture">
     <img id="picture-icon" src="Img/icono-subir-imagen.png">
     </div>
     </div>
+</div>
 </div>
 
 <footer>
@@ -34,6 +36,30 @@ export const home = () => {
   const exit = drawHome.querySelector('.close-green');
   exit.addEventListener('click', () => {
     closeSession();
+  });
+
+  const writePost = drawHome.querySelector('.write');
+  writePost.addEventListener('click', () => {
+    const wallForModal = drawHome.querySelector('.main');
+    const drawModal = `
+
+<div class="modal">
+<div class="modal-post">
+  <div class="publication">
+  <input id="modalTitle" class="modal-title" placeholder="   ¿Qué quieres trocar?"></input>
+  <textarea id="modalText" class="modal-text" placeholder="   Descríbelo aquí"></textarea >
+  </div>
+  <div class="icons">
+  <img id="modal-icon" src="Img/icono-subir-imagen.png">
+  <button id= "modalBtn" class="modal-btn"> Publicar </button>
+  </div>
+  </div>
+</div>
+`;
+
+    wallForModal.innerHTML = drawModal;
+
+    return drawModal;
   });
 
   return drawHome;
