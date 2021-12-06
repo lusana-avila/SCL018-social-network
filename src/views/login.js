@@ -1,4 +1,4 @@
-import { signIn, googleSignIn } from '../lib/firebase.js';
+import { signIn, googleSignIn, observer } from '../lib/firebase.js';
 
 export const loginUser = () => {
   const drawLogin = document.createElement('section');
@@ -42,18 +42,17 @@ export const loginUser = () => {
     const loginEmail = drawLogin.querySelector('#loginEmail').value;
     const loginPassword = drawLogin.querySelector('#loginPassword').value;
     console.log(loginEmail);
-  
     signIn(loginEmail, loginPassword);
+    observer();
   });
 
   const googleBtn = drawLogin.querySelector('#googleBtn');
   googleBtn.addEventListener('click', () => {
+    observer();
     googleSignIn();
-  
   });
 
   return drawLogin;
 };
 
 // usuario: marion@hola.cl , contraseña: blabla //
-// quitamos el console.log de contraseña porque nos aparecía mensaje de error //

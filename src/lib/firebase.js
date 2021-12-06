@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/no-unresolved */
 // Import the functions you need from the SDKs you need
 
@@ -7,9 +10,11 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendEmailVerification,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  onAuthStateChanged,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 // TODO: Add SDKs for Firebase products that you want to use
@@ -27,34 +32,48 @@ const firebaseConfig = {
   measurementId: 'G-ZFMM9GB4C3',
 };
 
-// Método para registrar un usuario nuevo
+// constantes que guardan datos de Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// Método para registrar un usuario nuevo
 export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => { // aquí en el then debería ir lo que sucede luego de registrarse
     // Signed in
     const user = userCredential.user;
-    window.location.hash = '#/home';
     console.log(user);
-    // ...
+    // función que envía email de verificación
+
+    if (user != null) {
+      sendEmailVerification(auth.currentUser)
+        .then((configuracion) => {
+          console.log('se envió email');
+          alert('Hemos enviado un enlace de verificación a tu email');
+          window.location.hash = '#/login';
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.log(errorCode);
     console.log(errorMessage);
-    // ..
   });
 
 // Método para loguear un usuario ya registrado
-
 export const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in
-    window.location.hash = '#/home';
     const user = userCredential.user;
-    console.log(user);
-    // ...
+    if (user.emailVerified === true) {
+      window.location.hash = '#/home';
+      console.log(user);
+    } else {
+      alert('Debes verificar tu email para poder ingresar');
+    }
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -65,6 +84,7 @@ export const signIn = (email, password) => signInWithEmailAndPassword(auth, emai
 
 export const provider = new GoogleAuthProvider();
 
+// Método para loguear a usuario con su cuenta de gmail
 export const googleSignIn = () => {
   signInWithPopup(auth, provider)
     .then((result) => {
@@ -94,6 +114,7 @@ export const googleSignIn = () => {
     });
 };
 
+// Cierre de sesión
 export const closeSession = () => signOut(auth)
   .then(() => {
   // Sign-out successful.
@@ -101,3 +122,16 @@ export const closeSession = () => signOut(auth)
   }).catch((error) => {
   // An error happened.
   });
+
+// Observador de estado
+export const observer = () => {
+  onAuthStateChanged(auth, (user) => {
+    if ((user !== null || undefined) && user.emailVerified === true) {
+      const uid = user.uid;
+      console.log('user is signed in');
+    } else {
+      window.location.hash = '#/login';
+      console.log('user is signed out');
+    }
+  });
+};
