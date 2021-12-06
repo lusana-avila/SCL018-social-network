@@ -95,9 +95,9 @@ export const googleSignIn = () => {
 };
 
 export const closeSession = () => signOut(auth)
-.then(() => {
+  .then(() => {
   // Sign-out successful.
-  window.location.hash = '#/login';
-}).catch((error) => {
+    window.location.hash = '#/login';
+  }).catch((error) => {
   // An error happened.
-});
+  });
