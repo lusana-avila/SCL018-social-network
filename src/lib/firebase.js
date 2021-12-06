@@ -17,6 +17,11 @@ import {
   onAuthStateChanged,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
+
+import {
+  getFirestore, collection, addDoc, getDocs,
+} from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,6 +40,7 @@ const firebaseConfig = {
 // constantes que guardan datos de Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 // Método para registrar un usuario nuevo
 export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password)
@@ -133,5 +139,24 @@ export const observer = () => {
       window.location.hash = '#/login';
       console.log('user is signed out');
     }
+  });
+};
+
+// Crear post
+// Add a new document with a generated id.
+export const post = async (title, description) => {
+  const docRef = await addDoc(collection(db, 'posts'), {
+    title,
+    description,
+  });
+  console.log('Document written with ID: ', docRef.id);
+  return docRef;
+};
+
+export const readData = async () => {
+  const querySnapshot = await getDocs(collection(db, 'posts'));
+  querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+    console.log(doc.id, ' => ', doc.data());
   });
 };

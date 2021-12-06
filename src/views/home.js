@@ -1,4 +1,4 @@
-import { closeSession } from '../lib/firebase.js';
+import { closeSession, post } from '../lib/firebase.js';
 
 export const home = () => {
   const drawHome = document.createElement('section');
@@ -52,17 +52,24 @@ export const home = () => {
     </div>
     <div class="icons">
     <img id="modal-icon" src="Img/icono-subir-imagen.png">
-    <button id= "modalBtn" class="modal-btn"> Publicar </button>
+    <button id="modalBtn" class="modal-btn"> Publicar </button>
     </div>
     </div>
   </div>
   `;
 
       wallForModal.innerHTML = drawModal;
-
+      const publishBtn = drawHome.querySelector('#modalBtn');
+      console.log(publishBtn);
+      publishBtn.addEventListener('click', () => {
+        console.log('Hola');
+        const title = drawHome.querySelector('#modalTitle').value;
+        const description = drawHome.querySelector('#modalText').value;
+        console.log(title, description);
+        post(title, description);
+      });
       return drawModal;
     });
   });
-
   return drawHome;
 };
