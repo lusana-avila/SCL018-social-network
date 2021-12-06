@@ -45,7 +45,6 @@ export const registerUser = () => {
     const email = drawRegister.querySelector('#email').value;
     const password = drawRegister.querySelector('#password').value;
     console.log(email);
-
     createUser(email, password);
   });
   return drawRegister;
