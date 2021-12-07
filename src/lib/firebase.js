@@ -19,7 +19,12 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 
 import {
-  getFirestore, collection, addDoc, getDocs,
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  where,
+  onSnapshot,
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -144,7 +149,7 @@ export const observer = () => {
 
 // Crear post
 // Add a new document with a generated id.
-export const post = async (title, description) => {
+export const addPostToCollection = async (title, description) => {
   const docRef = await addDoc(collection(db, 'posts'), {
     title,
     description,
@@ -153,6 +158,24 @@ export const post = async (title, description) => {
   return docRef;
 };
 
+export const readData = (callback) => {
+  const q = query(collection(db, 'posts')); // ver si hay que quitar las comillas de 'posts' y si añadimos OrderBy
+  onSnapshot(q, (querySnapshot) => {
+    const posts = [];
+    querySnapshot.forEach((doc) => {
+      posts.push({
+        id: doc.id,
+        data: doc.data(),
+        title: doc.data.title,
+        description: doc.data.description,
+      });
+    });
+    console.log('title', 'description', posts.join(', '));
+    return posts;
+  });
+};
+
+/*
 export const readData = async () => {
   const posts = [];
   const querySnapshot = await getDocs(collection(db, 'posts'));
@@ -166,4 +189,4 @@ export const readData = async () => {
     });
   });
   return posts;
-};
+}; */
