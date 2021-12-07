@@ -43,12 +43,10 @@ export const loginUser = () => {
     const loginPassword = drawLogin.querySelector('#loginPassword').value;
     console.log(loginEmail);
     signIn(loginEmail, loginPassword);
-    observer();
   });
 
   const googleBtn = drawLogin.querySelector('#googleBtn');
   googleBtn.addEventListener('click', () => {
-    observer();
     googleSignIn();
   });
 

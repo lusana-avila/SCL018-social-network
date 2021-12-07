@@ -19,7 +19,12 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 
 import {
-  getFirestore, collection, addDoc, getDocs,
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  where,
+  onSnapshot,
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -135,8 +140,8 @@ export const observer = () => {
     if ((user !== null || undefined) && user.emailVerified === true) {
       const uid = user.uid;
       console.log('user is signed in');
-    } else {
-      window.location.hash = '#/login';
+    } else if (window.location.hash === '#/home') {
+      closeSession();
       console.log('user is signed out');
     }
   });
@@ -144,7 +149,7 @@ export const observer = () => {
 
 // Crear post
 // Add a new document with a generated id.
-export const post = async (title, description) => {
+export const addPostToCollection = async (title, description) => {
   const docRef = await addDoc(collection(db, 'posts'), {
     title,
     description,
@@ -153,10 +158,35 @@ export const post = async (title, description) => {
   return docRef;
 };
 
+export const readData = (callback) => {
+  const q = query(collection(db, 'posts')); // ver si hay que quitar las comillas de 'posts' y si añadimos OrderBy
+  onSnapshot(q, (querySnapshot) => {
+    const posts = [];
+    querySnapshot.forEach((doc) => {
+      posts.push({
+        id: doc.id,
+        data: doc.data(),
+        title: doc.data.title,
+        description: doc.data.description,
+      });
+    });
+    console.log('title', 'description', posts.join(', '));
+    return posts;
+  });
+};
+
+/*
 export const readData = async () => {
+  const posts = [];
   const querySnapshot = await getDocs(collection(db, 'posts'));
   querySnapshot.forEach((doc) => {
   // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, ' => ', doc.data());
+    // console.log(doc.id, ' => ', doc.data());
+    posts.push({
+      id: doc.id,
+      data: doc.data(),
+
+    });
   });
-};
+  return posts;
+}; */

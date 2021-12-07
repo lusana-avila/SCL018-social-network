@@ -1,4 +1,4 @@
-import { closeSession, post } from '../lib/firebase.js';
+import { closeSession, addPostToCollection, readData } from '../lib/firebase.js';
 
 export const home = () => {
   const drawHome = document.createElement('section');
@@ -13,12 +13,16 @@ export const home = () => {
 
 <div class="main">
 <div class="wall">
+
   <div class="post">
+ 
     <button id="write" class="write add-post">¿Qué quieres trocar?... </button>
     <div class="picture">
     <img id="picture-icon" src="Img/icono-subir-imagen.png">
     </div>
-    </div>
+    
+</div>
+
 </div>
 </div>
 
@@ -33,11 +37,13 @@ export const home = () => {
 
   drawHome.innerHTML = homeTemplate;
 
+  // se añade la función de cerrar sesión al botón
   const exit = drawHome.querySelector('.close-green');
   exit.addEventListener('click', () => {
     closeSession();
   });
 
+  // se añade el modal al clickear el "falso input"
   const writePost = drawHome.querySelectorAll('.add-post');
   writePost.forEach((elem) => {
     elem.addEventListener('click', () => {
@@ -59,14 +65,21 @@ export const home = () => {
   `;
 
       wallForModal.innerHTML = drawModal;
+
+      // se añade función para capturar y leer la data al botón Publicar
       const publishBtn = drawHome.querySelector('#modalBtn');
-      console.log(publishBtn);
       publishBtn.addEventListener('click', () => {
-        console.log('Hola');
         const title = drawHome.querySelector('#modalTitle').value;
         const description = drawHome.querySelector('#modalText').value;
         console.log(title, description);
-        post(title, description);
+        addPostToCollection(title, description);
+        readData();
+        wallForModal.innerHTML = '';
+        // drawHome.innerHTML = homeTemplate;
+      /*  readData().then((value) => {
+          // crear función para imprimir el html, pasándole value. Iterar y eso debe arrojar el html
+          console.log(value);
+        }); */
       });
       return drawModal;
     });
