@@ -135,8 +135,8 @@ export const observer = () => {
     if ((user !== null || undefined) && user.emailVerified === true) {
       const uid = user.uid;
       console.log('user is signed in');
-    } else {
-      window.location.hash = '#/login';
+    } else if (window.location.hash === '#/home') {
+      closeSession();
       console.log('user is signed out');
     }
   });
@@ -154,9 +154,16 @@ export const post = async (title, description) => {
 };
 
 export const readData = async () => {
+  const posts = [];
   const querySnapshot = await getDocs(collection(db, 'posts'));
   querySnapshot.forEach((doc) => {
   // doc.data() is never undefined for query doc snapshots
-    console.log(doc.id, ' => ', doc.data());
+    // console.log(doc.id, ' => ', doc.data());
+    posts.push({
+      id: doc.id,
+      data: doc.data(),
+
+    });
   });
+  return posts;
 };
