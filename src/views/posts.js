@@ -1,0 +1,1 @@
+import { auth, addPostToCollection, readData } from '../lib/firebase.js';
