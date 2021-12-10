@@ -155,18 +155,22 @@ a{
   width: 40vh;
 }
 
+.main{
+    display: flex;
+}
+
 .wall {
   display: flex;
+  flex-direction: column;
   background-color: none;
   width: 100%;
   height: 90vh;
- 
-  justify-content: space-around;
+  align-items: center;
 }
 
 .post {
   width: 80%;
-  height: 20vh;
+  height: 15vh;
   margin-top: 28%;
   background: #FFFFFF;
   border: 1px solid #E6E4EA;
@@ -220,16 +224,28 @@ a{
 }
 */
 
+.modal-container {
+display: flex;
+margin-top: 20%;
+position: fixed;
+pointer-events: none;
+opacity: 0;
+
+}
+
 .modal {
-    display: flex;
+    
+    width: 100%;
     height: 90vh;
     align-items: center;
     justify-content: center;
+  
 }
 
 .modal-post {
-  width: 80%;
+  width: 100%;
   height: 50vh;
+  margin-top: 3vh;
   background: #FFFFFF;
   border: 1px solid #E6E4EA;
   border-radius: 15px;
@@ -239,6 +255,7 @@ a{
   justify-content: space-around;
   align-content: space-around;
   box-shadow: 5px 10px 8px #E6E4EA;
+  transition: all 4s;
 }
 
 .publication {
@@ -246,6 +263,12 @@ a{
     flex-direction: column;
     width: 80%;
     
+}
+
+#close_btn {
+    margin-left: 83%;
+    margin-top: 8%;
+    width: 10vw;
 }
 
 .modal-title {
@@ -299,6 +322,13 @@ textarea {
 .modal-icon {
     height: 15%;
     width: auto;
+}
+
+
+.show {
+    opacity: 1;
+    pointer-events: auto;
+    transition: all 1s;
 }
 
 .container-footer {

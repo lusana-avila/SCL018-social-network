@@ -25,6 +25,8 @@ import {
   query,
   where,
   onSnapshot,
+  Timestamp,
+
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -147,12 +149,14 @@ export const observer = () => {
   });
 };
 
+const postDate = Timestamp.fromDate(new Date());
 // Crear post
 // Add a new document with a generated id.
 export const addPostToCollection = async (title, description) => {
   const docRef = await addDoc(collection(db, 'posts'), {
     title,
     description,
+    postDate,
   });
   console.log('Document written with ID: ', docRef.id);
   return docRef;
