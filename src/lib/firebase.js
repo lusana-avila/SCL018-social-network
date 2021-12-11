@@ -46,7 +46,7 @@ const firebaseConfig = {
 
 // constantes que guardan datos de Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const db = getFirestore(app);
 
 // Método para registrar un usuario nuevo
@@ -152,11 +152,16 @@ export const observer = () => {
 const postDate = Timestamp.fromDate(new Date());
 // Crear post
 // Add a new document with a generated id.
-export const addPostToCollection = async (title, description) => {
+export const addPostToCollection = async (a, b) => {
   const docRef = await addDoc(collection(db, 'posts'), {
-    title,
-    description,
-    postDate,
+    id: auth.currentUser.uid,
+    name: auth.currentUser.displayName,
+    email: auth.currentUser.email,
+    title: a,
+    description: b,
+    postDate: Date(Date.now()),
+    likes: [],
+    likesCounter: 0,
   });
   console.log('Document written with ID: ', docRef.id);
   return docRef;

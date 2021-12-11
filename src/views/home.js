@@ -1,50 +1,53 @@
 import { closeSession, addPostToCollection, readData } from '../lib/firebase.js';
+import { showPosts } from './posts.js';
 
 export const home = () => {
   const drawHome = document.createElement('section');
   const homeTemplate = `
+  <body>
   <header>
     <div class="container-header">
-       <div class="container-kambalache-verde">
-       <img src="Img/kambalache_logo_verde.png" id="logoVerde">
-       </div>
+        <div class="container-kambalache-verde">
+        <img src="Img/kambalache_logo_verde.png" id="logoVerde">
+        </div>
     </div>
   </header>
-
-  <body>
 
     <div class="main">
       <div class="wall">
 
         <div class="post">
           <button id="write" class="write add-post">¿Qué quieres trocar?... </button>
-          <div class="picture">
-          <img id="picture-icon" src="Img/icono-subir-imagen.png">
-          </div>
+            <div class="picture">
+              <img id="picture-icon" src="Img/icono-subir-imagen.png">
+            </div>
         </div>
 
         <section class="modal-container" id="modal_container"> 
 
           <div class="modal">
-          <div class="modal-post">
-            <div class="publication">
-              <button class="close-btn" id="close_btn">X</button>
-              <input id="modalTitle" class="modal-title" placeholder="   ¿Qué quieres trocar?"></input>
-              <textarea id="modalText" class="modal-text" placeholder="   Descríbelo aquí"></textarea >
-            </div>
+            
+            <div class="modal-post">
+              <div class="publication">
+                <button class="close-btn" id="close_btn">X</button>
+                <input id="modalTitle" class="modal-title" placeholder="   ¿Qué quieres trocar?"></input>
+                <textarea id="modalText" class="modal-text" placeholder="   Descríbelo aquí"></textarea >
+              </div>
   
-            <div class="icons">
-              <img id="modal-icon" src="Img/icono-subir-imagen.png">
-              <button id="modalBtn" class="modal-btn close-btn"> Publicar </button>
+              <div class="icons">
+                <img id="modal-icon" src="Img/icono-subir-imagen.png">
+                <button id="modalBtn" class="modal-btn close-btn"> Publicar </button>
+              </div>
             </div>
           </div>
-          </div>
-          </section>
+        </section>
+
+        <section class="feed-container" id="feed_container">
+        </section>
+
 
       </div>
     </div>
-
-  </body>
 
   <footer>
 
@@ -55,6 +58,7 @@ export const home = () => {
     </div>
 
   </footer>
+  </body>
 `;
 
   drawHome.innerHTML = homeTemplate;
@@ -92,7 +96,7 @@ export const home = () => {
     console.log(title, description);
     addPostToCollection(title, description);
     readData();
-
+    showPosts();
     // drawHome.querySelector('.modal').style.display = 'none';
     /*  readData().then((value) => {
           // crear función para imprimir el html, pasándole value. Iterar y eso debe arrojar el html
