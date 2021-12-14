@@ -155,7 +155,7 @@ a{
   width: 40vh;
 }
 
-.main{
+.main {
     display: flex;
 }
 
@@ -168,7 +168,8 @@ a{
   align-items: center;
 }
 
-.post {
+.post,
+.container-comment {
   width: 80%;
   height: 15vh;
   margin-top: 28%;
@@ -346,7 +347,50 @@ textarea {
   cursor: pointer;
 }
 
+.feed-container {
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
 
+.comment-box {
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+
+.container-comment {
+    display: flex;
+    width: 100%;
+    margin-top: 8%;
+}
+
+.user-name {
+    display: flex;
+    font-weight:bolder;
+    width: 100%;
+    align-items: flex-start;
+    margin-left: 5%;
+    margin-top: 10%;
+    height: auto;
+}
+.title-comment {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    margin-left: 5%;
+    margin-top: 3%;
+    height: auto;
+}
+.description-comment {
+ display: flex;
+width: 100%;
+align-items: flex-start;
+margin-left: 5%;
+margin-top: 3%;
+height: auto;
+
+}
 
 @media (min-width: 426px) and (max-width: 768px) {
 

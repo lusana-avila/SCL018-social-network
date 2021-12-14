@@ -23,9 +23,9 @@ import {
   collection,
   addDoc,
   query,
-  where,
   onSnapshot,
   Timestamp,
+  orderBy,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
@@ -47,7 +47,7 @@ const firebaseConfig = {
 // constantes que guardan datos de Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
-const db = getFirestore(app);
+const db = getFirestore(app); // esta es la base de datos
 
 // Método para registrar un usuario nuevo
 export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password)
@@ -150,8 +150,8 @@ export const observer = () => {
 };
 
 const postDate = Timestamp.fromDate(new Date());
-// Crear post
-// Add a new document with a generated id.
+
+// Add a new document with a generated id (usamos este método add porque genera un id automático)
 export const addPostToCollection = async (a, b) => {
   const docRef = await addDoc(collection(db, 'posts'), {
     id: auth.currentUser.uid,
@@ -167,22 +167,31 @@ export const addPostToCollection = async (a, b) => {
   return docRef;
 };
 
-export const readData = (callback) => {
-  const q = query(collection(db, 'posts')); // ver si hay que quitar las comillas de 'posts' y si añadimos OrderBy
+export const readData = (collectionName, callback) => {
+  const q = query(collection(db, collectionName), orderBy('postDate', 'desc'));
+  onSnapshot(q, (querySnapshot) => {
+    const posts = [];
+    querySnapshot.forEach((_doc) => {
+      posts.push({ ..._doc.data(), id: _doc.id });
+    });
+    callback(posts);
+  });
+};
+
+/* la siguiente función activa "objetos de escucha de instantáneas" al momento de escribir
+export const readData = (collectionName, callback) => {
+  const q = query(collection(db, 'posts')); // se quitan comillas de posts? se pone Order By?
   onSnapshot(q, (querySnapshot) => {
     const posts = [];
     querySnapshot.forEach((doc) => {
-      posts.push({
-        id: doc.id,
-        data: doc.data(),
-        title: doc.data.title,
-        description: doc.data.description,
-      });
+      posts.push(doc.data());
     });
-    console.log('title', 'description', posts.join(', '));
+    console.log('the elements are: ', posts.join(' , '));
+    console.log(posts);
     return posts;
   });
 };
+*/
 
 /*
 export const readData = async () => {
