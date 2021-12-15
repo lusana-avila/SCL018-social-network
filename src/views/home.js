@@ -87,8 +87,9 @@ export const home = () => {
     const description = drawHome.querySelector('.modal-text').value;
     console.log(title, description);
     addPostToCollection(title, description);
-    showPosts();
   });
+
+  showPosts();
 
   closeBtn.forEach((elem) => {
     elem.addEventListener('click', () => {
