@@ -1,4 +1,4 @@
-import { closeSession, addPostToCollection, readData } from '../lib/firebase.js';
+import { closeSession, addPostToCollection } from '../lib/firebase.js';
 import { showPosts } from './posts.js';
 
 export const home = () => {
@@ -80,6 +80,16 @@ export const home = () => {
     });
   });
 
+  // se añade función para capturar y leer la data al botón Publicar
+  const publishBtn = drawHome.querySelector('.modal-btn');
+  publishBtn.addEventListener('click', () => {
+    const title = drawHome.querySelector('.modal-title').value;
+    const description = drawHome.querySelector('.modal-text').value;
+    console.log(title, description);
+    addPostToCollection(title, description);
+    showPosts();
+  });
+
   closeBtn.forEach((elem) => {
     elem.addEventListener('click', () => {
       modal.classList.remove('show');
@@ -88,20 +98,5 @@ export const home = () => {
     });
   });
 
-  // se añade función para capturar y leer la data al botón Publicar
-  const publishBtn = drawHome.querySelector('#modalBtn');
-  publishBtn.addEventListener('click', () => {
-    const title = drawHome.querySelector('#modalTitle').value;
-    const description = drawHome.querySelector('#modalText').value;
-    console.log(title, description);
-    addPostToCollection(title, description);
-    readData();
-    showPosts();
-    // drawHome.querySelector('.modal').style.display = 'none';
-    /*  readData().then((value) => {
-          // crear función para imprimir el html, pasándole value. Iterar y eso debe arrojar el html
-          console.log(value);
-        }); */
-  });
   return drawHome;
 };

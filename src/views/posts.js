@@ -13,7 +13,7 @@ const templatePost = (posts) => {
         <div id="title_comment" class="title-comment">${element.title}</div>
         <div id="description_comment" class="description-comment">${element.description}</div>
           <div class="button-like">
-            <img id="picture-icon" src="Img/icono-subir-imagen.png">
+           
           </div>
       
     `;
@@ -48,3 +48,5 @@ const templatePost = (posts) => {
 export const showPosts = () => {
   readData('posts', templatePost);
 };
+
+// esto va en la línea 16:  <img id="picture-icon" src="Img/icono-subir-imagen.png">
