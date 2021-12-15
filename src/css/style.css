@@ -157,6 +157,7 @@ a{
 
 .main {
     display: flex;
+    
 }
 
 .wall {
@@ -363,7 +364,7 @@ justify-content: center;
     display: flex;
     width: 100%;
     margin-top: 8%;
-}
+    word-break: break-word;
 
 .user-name {
     display: flex;
@@ -454,27 +455,20 @@ height: auto;
 }
 
 /*
-
 input:hover{
     border: 1px solid #EB583E;
 }
-
 ::placeholder {
     color: #142030;
     font-size: 1.2em;
 }
-
-
-
 @media (min-width: 993px) {
     .illustration {
         width: 50%;
         align-items: flex-start;
     }
-
     .logo{
         flex: 0 0 20%;
     }
-
 }
 */
