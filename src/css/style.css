@@ -318,7 +318,6 @@ textarea {
     font-size: 13px;
     line-height: 15px;
     color: #EFF1C6;
-   
 }
 
 .modal-icon {
@@ -352,19 +351,20 @@ textarea {
 display: flex;
 flex-direction: column;
 justify-content: center;
+width: inherit;
 }
 
 .comment-box {
-display: flex;
-flex-direction: column;
-justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container-comment {
     display: flex;
-    width: 100%;
     margin-top: 8%;
     word-break: break-word;
+}
 
 .user-name {
     display: flex;
@@ -375,6 +375,7 @@ justify-content: center;
     margin-top: 10%;
     height: auto;
 }
+
 .title-comment {
     display: flex;
     width: 100%;
@@ -384,13 +385,35 @@ justify-content: center;
     height: auto;
 }
 .description-comment {
- display: flex;
+display: flex;
 width: 100%;
 align-items: flex-start;
 margin-left: 5%;
 margin-top: 3%;
 height: auto;
+}
 
+.user-icons {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    width: 100%;
+}
+
+.button-edit,
+.button-delete {
+display: flex;
+}
+
+.button-delete {
+    background-color: transparent;
+    border:none;
+    }
+
+.delete-icon,
+.edit-icon {
+    width: 15%;
+    margin-bottom: 5%;
 }
 
 @media (min-width: 426px) and (max-width: 768px) {
@@ -435,7 +458,6 @@ height: auto;
     .container-images {
 
         display: flex;
-       
         justify-content: flex-start;
     }
     

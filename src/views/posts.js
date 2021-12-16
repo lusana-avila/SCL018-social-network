@@ -1,4 +1,4 @@
-import { readData, auth } from '../lib/firebase.js';
+import { readData, auth, deleteData } from '../lib/firebase.js';
 
 const templatePost = (posts) => {
   const feedContainer = document.querySelector('.feed-container');
@@ -13,7 +13,7 @@ const templatePost = (posts) => {
         <div id="title_comment" class="title-comment">${element.title}</div>
         <div id="description_comment" class="description-comment">${element.description}</div>
           <div class="button-like">
-           
+            
           </div>
       
     `;
@@ -23,16 +23,13 @@ const templatePost = (posts) => {
     `;
 
     let printCommentMiddle = '';
-    if (element.id === auth.currentUser.uid) {
+    if (element.userId === auth.currentUser.uid) {
       printCommentMiddle = `
-      <div id="buttons" class="buttons">
+      <div id="user_icons" class="user-icons">
 
-        <button class="button-edit">
-          <img id="" src="Img/icono-subir-imagen.png">
-        </button>
 
-        <button class="button-delete">
-          <img id="" src="Img/icono-subir-imagen.png">
+        <button class="button-delete" id="button_delete" value="${element.id}">
+          <img id="delete_icon" class="delete-icon" src="Img/icono_delete.png">
         </button>
 
       </div>
@@ -42,11 +39,21 @@ const templatePost = (posts) => {
     feedContainer.appendChild(commentBox);
   };
   posts.forEach(printPost);
-  return feedContainer;
+
+  // función para borrar post
+
+  const deleteButton = document.querySelectorAll('.button-delete');
+  deleteButton.forEach((icon) => {
+    icon.addEventListener('click', () => {
+      deleteData(icon.value);
+    });
+  });
 };
 
 export const showPosts = () => {
   readData('posts', templatePost);
 };
 
-// esto va en la línea 16:  <img id="picture-icon" src="Img/icono-subir-imagen.png">
+// esto va en la línea 30: <div class="button-edit">
+// <img id="edit_icon" class="edit-icon" src="Img/icono-subir-imagen.png">
+// </div>

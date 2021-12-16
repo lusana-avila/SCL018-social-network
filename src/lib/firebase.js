@@ -26,6 +26,8 @@ import {
   onSnapshot,
   Timestamp,
   orderBy,
+  doc,
+  deleteDoc,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
@@ -154,7 +156,7 @@ const postDate = Timestamp.fromDate(new Date());
 // Add a new document with a generated id (usamos este método add porque genera un id automático)
 export const addPostToCollection = async (a, b) => {
   const docRef = await addDoc(collection(db, 'posts'), {
-    id: auth.currentUser.uid,
+    userId: auth.currentUser.uid,
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
     title: a,
@@ -176,6 +178,14 @@ export const readData = (collectionName, callback) => {
     });
     callback(posts);
   });
+};
+
+export const deleteData = async (id) => {
+  console.log(id);
+  const confirm = window.confirm('¿Quieres eliminar esta publicación?');
+  if (confirm) {
+    await deleteDoc(doc(db, 'posts', id));
+  }
 };
 
 /* la siguiente función activa "objetos de escucha de instantáneas" al momento de escribir
