@@ -15,6 +15,7 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
+  updateProfile,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-auth.js';
 
@@ -28,6 +29,10 @@ import {
   orderBy,
   doc,
   deleteDoc,
+  updateDoc,
+  getDoc,
+  arrayRemove,
+  arrayUnion,
 
 } from 'https://www.gstatic.com/firebasejs/9.2.0/firebase-firestore.js';
 
@@ -52,50 +57,52 @@ export const auth = getAuth(app);
 const db = getFirestore(app); // esta es la base de datos
 
 // Método para registrar un usuario nuevo
-export const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => { // aquí en el then debería ir lo que sucede luego de registrarse
+export const createUser = (email, password) => {
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => { // aquí en el then debería ir lo que sucede luego de registrarse
     // Signed in
-    const user = userCredential.user;
-    console.log(user);
-    // función que envía email de verificación
-
-    if (user != null) {
-      sendEmailVerification(auth.currentUser)
-        .then((configuracion) => {
-          console.log('se envió email');
-          alert('Hemos enviado un enlace de verificación a tu email');
-          window.location.hash = '#/login';
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode);
-    console.log(errorMessage);
-  });
-
-// Método para loguear un usuario ya registrado
-export const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    if (user.emailVerified === true) {
-      window.location.hash = '#/home';
+      const user = userCredential.user;
       console.log(user);
-    } else {
-      alert('Debes verificar tu email para poder ingresar');
-    }
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode);
-    console.log(errorMessage);
-  });
+      // función que envía email de verificación
+
+      if (user != null) {
+        sendEmailVerification(auth.currentUser)
+          .then((configuracion) => {
+            console.log('se envió email');
+            alert('Hemos enviado un enlace de verificación a tu email');
+            window.location.hash = '#/login';
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
+};
+// Método para loguear un usuario ya registrado
+export const signIn = (email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+    // Signed in
+      const user = userCredential.user;
+      if (user.emailVerified === true) {
+        window.location.hash = '#/home';
+      } else {
+        alert('Debes verificar tu email para poder ingresar');
+      }
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorMessage);
+    });
+};
 
 export const provider = new GoogleAuthProvider();
 
@@ -159,6 +166,7 @@ export const addPostToCollection = async (a, b) => {
     userId: auth.currentUser.uid,
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
+    // userPost: textPost,
     title: a,
     description: b,
     postDate: Date(Date.now()),
@@ -169,6 +177,7 @@ export const addPostToCollection = async (a, b) => {
   return docRef;
 };
 
+// la siguiente función activa "objetos de escucha de instantáneas" al momento de escribir
 export const readData = (collectionName, callback) => {
   const q = query(collection(db, collectionName), orderBy('postDate', 'desc'));
   onSnapshot(q, (querySnapshot) => {
@@ -188,7 +197,27 @@ export const deleteData = async (id) => {
   }
 };
 
-/* la siguiente función activa "objetos de escucha de instantáneas" al momento de escribir
+export const updateLikes = async (id) => {
+  const userIdentifier = auth.currentUser.uid;
+  const postRef = doc(db, 'posts', id);
+  const docSnap = await getDoc(postRef);
+  const postData = docSnap.data();
+  const likesCount = postData.likesCounter;
+
+  if ((postData.likes).includes(userIdentifier)) {
+    await updateDoc(postRef, {
+      likes: arrayRemove(userIdentifier),
+      likesCounter: likesCount - 1,
+    });
+  } else {
+    await updateDoc(postRef, {
+      likes: arrayUnion(userIdentifier),
+      likesCounter: likesCount + 1,
+    });
+  }
+};
+
+/*
 export const readData = (collectionName, callback) => {
   const q = query(collection(db, 'posts')); // se quitan comillas de posts? se pone Order By?
   onSnapshot(q, (querySnapshot) => {
