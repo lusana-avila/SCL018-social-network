@@ -1,4 +1,11 @@
-import { readData, auth, deleteData } from '../lib/firebase.js';
+/* eslint-disable import/named */
+import {
+  readData,
+  auth,
+  deleteData,
+  updateLikes,
+
+} from '../lib/firebase.js';
 
 const templatePost = (posts) => {
   const feedContainer = document.querySelector('.feed-container');
@@ -10,15 +17,17 @@ const templatePost = (posts) => {
     <div id="container_comment" class="container-comment">
       <div id="${element.id}" class="post-id">
         <div id="user_name" class="user-name">${element.name}</div>
+       
         <div id="title_comment" class="title-comment">${element.title}</div>
         <div id="description_comment" class="description-comment">${element.description}</div>
         
         <div class="user-icons">
 
         <div class="buttonLike">
-          <button class="button-like" id="button_like">
+          <button class="button-like" id="button_like" value="${element.id}">
             <img id="like_icon" class="like-icon" src="Img/icono-like.png">
           </button>
+          <p class="counter-likes" id="counterLikes">${element.likesCounter} Me gusta</p>
         </div>
       
     `;
@@ -52,6 +61,17 @@ const templatePost = (posts) => {
       deleteData(icon.value);
     });
   });
+
+  // función para dar like
+  const likeButton = document.querySelectorAll('.button-like');
+  likeButton.forEach((heart) => {
+    heart.addEventListener('click', () => {
+      const postId = heart.value;
+      updateLikes(postId);
+    });
+  });
+
+  return feedContainer;
 };
 
 export const showPosts = () => {
