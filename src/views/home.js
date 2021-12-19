@@ -18,9 +18,6 @@ export const home = () => {
 
         <div class="post">
           <button id="write" class="write add-post">¿Qué quieres trocar?... </button>
-            <div class="picture">
-              <img id="picture-icon" src="Img/icono-subir-imagen.png">
-            </div>
         </div>
 
         <section class="modal-container" id="modal_container"> 
@@ -35,7 +32,6 @@ export const home = () => {
               </div>
   
               <div class="icons">
-                <img id="modal-icon" src="Img/icono-subir-imagen.png">
                 <button id="modalBtn" class="modal-btn close-btn"> Publicar </button>
               </div>
             </div>

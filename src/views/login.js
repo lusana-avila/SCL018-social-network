@@ -10,12 +10,14 @@ export const loginUser = () => {
       <div class="illustration">
         <img id="illustration" src="img/kambalache_ilustracion.png" alt="man and woman bartering things">
       </div>
-    <div class="logo">
-        <img id="logo" src="img/kambalache_logo.png" alt="kambalache logo">
-      </div>
     </div>
 
     <div class="login-credentials">
+
+    <div class="logo">
+        <img id="logo" src="img/kambalache_logo.png" alt="kambalache logo">
+      </div>
+      
       <div class="form">
         <input type="email" id= "loginEmail" placeholder="Email"></input>
         <input type="password" id= "loginPassword" placeholder="Contraseña"></input>

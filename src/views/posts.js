@@ -16,23 +16,24 @@ const templatePost = (posts) => {
     const printCommentStart = `
     <div id="container_comment" class="container-comment">
       <div id="${element.id}" class="post-id">
-        <div id="user_name" class="user-name">${element.name}</div>
-       
+        <div id="user_name" class="user-name">${element.name}</div>   
         <div id="title_comment" class="title-comment">${element.title}</div>
         <div id="description_comment" class="description-comment">${element.description}</div>
         
         <div class="user-icons">
 
-        <div class="buttonLike">
+        
+          
           <button class="button-like" id="button_like" value="${element.id}">
             <img id="like_icon" class="like-icon" src="Img/icono-like.png">
           </button>
           <p class="counter-likes" id="counterLikes">${element.likesCounter} Me gusta</p>
+          
         </div>
       
     `;
     const printCommentClosure = `
-        </div>
+        
       </div>
     </div>
     `;
@@ -45,6 +46,7 @@ const templatePost = (posts) => {
         <button class="button-delete" id="button_delete" value="${element.id}">
           <img id="delete_icon" class="delete-icon" src="Img/icono_delete.png">
         </button>
+      </div>
       </div>
       `;
     }
