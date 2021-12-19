@@ -4,7 +4,6 @@ import { showPosts } from './posts.js';
 export const home = () => {
   const drawHome = document.createElement('section');
   const homeTemplate = `
-  <body>
   <header>
     <div class="container-header">
         <div class="container-kambalache-verde">
@@ -15,11 +14,11 @@ export const home = () => {
 
     <div class="main">
       <div class="wall">
-
+      <div class="post-container">
         <div class="post">
           <button id="write" class="write add-post">¿Qué quieres trocar?... </button>
         </div>
-
+        </div>
         <section class="modal-container" id="modal_container"> 
 
           <div class="modal">
@@ -54,7 +53,7 @@ export const home = () => {
     </div>
 
   </footer>
-  </body>
+
 `;
 
   drawHome.innerHTML = homeTemplate;
