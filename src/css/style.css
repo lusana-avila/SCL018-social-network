@@ -6,6 +6,9 @@
 
 body {
     font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .login-container{
@@ -188,6 +191,12 @@ a{
 }
 
 /* Post */
+
+.post-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
 .post{
   width: 80%;
@@ -404,15 +413,19 @@ height: auto;
 
 .user-icons {
     display: flex;
+    flex-direction: row;
     width: 100%;
+    margin-top: 5vh;
 }
 
+/*
 .owner-icon {
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
     width: 100%;
 }
+*/
 
 #delete_icon,
 #like_icon {
@@ -420,22 +433,40 @@ height: auto;
     }
 
 .button-delete{
+    display: flex;
     background-color: transparent;
     border: none;
 }
 
 .button-like {
+    display: flex;
     background-color: transparent;
     border: none;
-    display: flex;
+   
+}
+
+.counter-likes {
+  display: flex;
 }
 
 .buttonLike {
   display: flex;
 }
 
+@media (min-width: 426px) and (max-width: 768px) {
+  .post-container {
+    flex-basis: 20%;
+    margin-top: 4vh;
+  }
 
-@media (min-width: 993px) {
+  .post{
+    margin-top: 12vh;
+  }
+  
+}
+
+
+@media (min-width: 769px) {
 
     
     .login-container,
@@ -494,9 +525,13 @@ display: flex;
   margin-left: 30%;
 }
 
+.post-container {
+  flex-basis: 20%;
+  margin-top: 4vh;
+}
+
 .post{
-  margin-top: 5%;
-  height: 50%;
+  margin-top: 16vh;
 }
 
 #write {
@@ -505,8 +540,9 @@ display: flex;
 }
 
 .container-comment {
-  width: 50%;
-  margin-top: 5%;
+  
+  flex: 0 0 20%;
+  
   
 }
 .container-footer{

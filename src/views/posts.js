@@ -21,19 +21,17 @@ const templatePost = (posts) => {
         <div id="description_comment" class="description-comment">${element.description}</div>
         
         <div class="user-icons">
-
-        
           
           <button class="button-like" id="button_like" value="${element.id}">
             <img id="like_icon" class="like-icon" src="Img/icono-like.png">
           </button>
-          <p class="counter-likes" id="counterLikes">${element.likesCounter} Me gusta</p>
+        
           
-        </div>
+        
       
     `;
     const printCommentClosure = `
-        
+      <p class="counter-likes" id="counterLikes">${element.likesCounter} Me gusta</p>
       </div>
     </div>
     `;
@@ -42,11 +40,10 @@ const templatePost = (posts) => {
     if (element.userId === auth.currentUser.uid) {
       printCommentMiddle = `
       
-      <div id="owner_icon" class="owner-icon">
         <button class="button-delete" id="button_delete" value="${element.id}">
           <img id="delete_icon" class="delete-icon" src="Img/icono_delete.png">
         </button>
-      </div>
+    
       </div>
       `;
     }
