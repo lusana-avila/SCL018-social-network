@@ -33,6 +33,8 @@ const templatePost = (posts) => {
     const printCommentClosure = `
       <p class="counter-likes" id="counterLikes">${element.likesCounter} Me gusta</p>
       </div>
+      <div class="filling">
+    <div>
     </div>
     `;
 

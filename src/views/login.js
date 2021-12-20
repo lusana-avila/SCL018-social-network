@@ -53,5 +53,3 @@ export const loginUser = () => {
 
   return drawLogin;
 };
-
-// usuario: marion@hola.cl , contraseña: blabla //

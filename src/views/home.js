@@ -36,6 +36,7 @@ export const home = () => {
             </div>
           </div>
         </section>
+        
 
         <section class="feed-container" id="feed_container">
         </section>
@@ -43,9 +44,10 @@ export const home = () => {
 
       </div>
     </div>
-
+    
   <footer>
 
+  
     <div class="container-footer">
       <img src="Img/icono-home-verde.png" class="home-green">
       <img src="Img/icono-agregar-post-verde.png" class="post-green add-post">
@@ -80,7 +82,6 @@ export const home = () => {
   publishBtn.addEventListener('click', () => {
     const title = drawHome.querySelector('.modal-title').value;
     const description = drawHome.querySelector('.modal-text').value;
-    console.log(title, description);
     addPostToCollection(title, description);
   });
 

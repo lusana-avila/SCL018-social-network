@@ -1,7 +1,7 @@
 import { createUser } from '../lib/firebase.js';
 
 export const registerUser = () => {
-  const drawRegister = document.createElement('section'); // crea un nodo de tipo element
+  const drawRegister = document.createElement('section');
   const registerTemplate = `
   
   <div class="register-container">
@@ -28,8 +28,9 @@ export const registerUser = () => {
         <button id="registerBtn">Registrate</button>
       </div>
 
-     
-
+      <div class="conditions">
+      <h4> Al hacer click en “Registrarte”, confirmo que leí y acepto los <a href='#/login'>Acuerdos de convivencia.</a></h4>
+      </div>
       <div class="login-here">
         <h4>¿Ya tienes cuenta?<a href='#/login'>Inicia sesión aqui</a></h4>
       </div>
@@ -39,7 +40,7 @@ export const registerUser = () => {
 `;
 
   drawRegister.innerHTML = registerTemplate;
-  // preguntar por que querySelector y no getelementbyid
+
   const registerBtn = drawRegister.querySelector('#registerBtn');
   registerBtn.addEventListener('click', () => {
     const email = drawRegister.querySelector('#email').value;
