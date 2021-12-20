@@ -1,4 +1,4 @@
-import { signIn, googleSignIn, observer } from '../lib/firebase.js';
+import { signIn, googleSignIn } from '../lib/firebase.js';
 
 export const loginUser = () => {
   const drawLogin = document.createElement('section');
@@ -43,7 +43,6 @@ export const loginUser = () => {
   loginBtn.addEventListener('click', () => {
     const loginEmail = drawLogin.querySelector('#loginEmail').value;
     const loginPassword = drawLogin.querySelector('#loginPassword').value;
-    console.log(loginEmail);
     signIn(loginEmail, loginPassword);
   });
 
